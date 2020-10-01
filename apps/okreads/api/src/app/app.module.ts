@@ -5,6 +5,6 @@ import { ApiBooksModule } from '@tmo/api/books';
 
 @Module({
   imports: [ApiBooksModule],
-  controllers: [AppController]
+  controllers: [AppController],
 })
 export class AppModule {}

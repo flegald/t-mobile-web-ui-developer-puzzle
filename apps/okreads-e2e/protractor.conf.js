@@ -1,7 +1,7 @@
 require('ts-node').register({
   transpileOnly: true,
   pretty: true,
-  project: require('path').join(__dirname, 'tsconfig.json')
+  project: require('path').join(__dirname, 'tsconfig.json'),
 });
 require('tsconfig-paths').register();
 
@@ -10,7 +10,7 @@ const protractor = require('protractor');
 // Update click to have a 200 ms delay so the app has a chance to update UI.
 // e.g. reducer update, XHRs, etc.
 const _click = protractor.WebElement.prototype.click;
-protractor.WebElement.prototype.click = function(...args) {
+protractor.WebElement.prototype.click = function (...args) {
   return _click.call(this, args).then(() => protractor.browser.sleep(500));
 };
 
@@ -20,8 +20,8 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: ['--allow-insecure-localhost']
-    }
+      args: ['--allow-insecure-localhost'],
+    },
   },
   acceptInsecureCerts: true,
   waitForTimeout: 90000,
@@ -31,26 +31,24 @@ exports.config = {
   onPrepare() {
     // Slow down the tests so reviewers can keep up.
     const origFn = protractor.browser.driver.controlFlow().execute;
-    protractor.browser.driver.controlFlow().execute = function() {
+    protractor.browser.driver.controlFlow().execute = function () {
       const args = arguments;
-      origFn.call(protractor.browser.driver.controlFlow(), () => protractor.promise.delayed(100)
+      origFn.call(protractor.browser.driver.controlFlow(), () =>
+        protractor.promise.delayed(100)
       );
       return origFn.apply(protractor.browser.driver.controlFlow(), args);
     };
 
     return Promise.all([
-      protractor.browser.driver
-        .manage()
-        .window()
-        .setSize(1200, 900)
+      protractor.browser.driver.manage().window().setSize(1200, 900),
     ]);
   },
   onComplete() {
     // Keep browser session alive for 3 seconds for reviewers to see result before close.
-    return new Promise(res => setTimeout(res, 3000))
+    return new Promise((res) => setTimeout(res, 3000));
   },
   specs: [
     './src/specs/reading-list.spec.ts',
-    './src/specs/search-books.spec.ts'
-  ]
+    './src/specs/search-books.spec.ts',
+  ],
 };

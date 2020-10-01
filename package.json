@@ -25,9 +25,15 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+    "prettier": "prettier --write apps/**/*.{ts,js,scss,html} libs/**/*.{ts,js,scss,html}",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points && node ./decorate-angular-cli.js"
   },
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier && ng lint && npm test"
+    }
+  },
   "dependencies": {
     "@angular/animations": "^10.0.10",
     "@angular/cdk": "9.2.2",
@@ -78,6 +84,7 @@
     "codelyzer": "^6.0.0",
     "dotenv": "6.2.0",
     "eslint": "6.8.0",
+    "husky": "^4.3.0",
     "jest": "25.2.3",
     "jest-preset-angular": "8.1.2",
     "mocha": "^7.1.2",

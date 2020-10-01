@@ -30,6 +30,11 @@ h1 {
     display: flex;
     align-items: center;
   }
+
+  .reading-list-toggle {
+    background-color: $gray20;
+    color: $pink-very-dark;
+  }
 }
 
 main {
