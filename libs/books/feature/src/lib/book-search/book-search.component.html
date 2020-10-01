@@ -4,10 +4,11 @@
       autoFocus
       matInput
       type="search"
+      aria-label="search-input"
       placeholder="Search for books to add to your reading list"
       formControlName="term"
     />
-    <button mat-icon-button matSuffix>
+    <button mat-icon-button matSuffix aria-label="book-search">
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
@@ -21,7 +22,7 @@
       </div>
       <div class="book--content">
         <div class="book--content--cover">
-          <img src="{{ b.coverUrl }}" />
+          <img src="{{ b.coverUrl }}" alt="book-cover" />
         </div>
         <div class="book--content--info">
           <div><strong>Author:</strong> {{ b.authors.join(',') }}</div>
@@ -48,7 +49,10 @@
 <ng-template #empty>
   <div class="empty">
     <p>
-      Try searching for a topic, for example "<a (click)="searchExample()"
+      Try searching for a topic, for example "<a
+        tabindex="0"
+        (keydown.enter)="searchExample()"
+        (click)="searchExample()"
         >JavaScript</a
       >".
     </p>

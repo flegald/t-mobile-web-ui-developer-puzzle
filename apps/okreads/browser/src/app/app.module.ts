@@ -28,14 +28,14 @@ import { MatIconModule } from '@angular/material/icon';
       {
         runtimeChecks: {
           strictStateImmutability: true,
-          strictActionImmutability: true
-        }
+          strictActionImmutability: true,
+        },
       }
     ),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ name: 'tmo' })
+    StoreDevtoolsModule.instrument({ name: 'tmo' }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
