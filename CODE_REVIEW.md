@@ -12,6 +12,8 @@
     * *Why*
         * This will prevent non standardized code to enter the repository and prevent such errors as found in `books.service.ts` - `Missing serach term`
         * This also benefits site security by ensuring no exploitative console logs or debuggers enter the site unnoticed.
+    * *Implemented*
+        * Added pre commit hook to run prettier, lint and unit tests
   
         
 * Consider modifying how routes are declared.

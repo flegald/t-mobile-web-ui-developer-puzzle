@@ -1,18 +1,20 @@
-<form [formGroup]="searchForm" (submit)="searchBooks()">
-  <mat-form-field floatLabel="never">
-    <input
-      autoFocus
-      matInput
-      type="search"
-      aria-label="search-input"
-      placeholder="Search for books to add to your reading list"
-      formControlName="term"
-    />
-    <button mat-icon-button matSuffix aria-label="book-search">
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
-</form>
+<ng-container>
+  <form [formGroup]="searchForm" (submit)="searchBooks()">
+    <mat-form-field floatLabel="never">
+      <input
+        autoFocus
+        matInput
+        type="search"
+        aria-label="search-input"
+        placeholder="Search for books to add to your reading list"
+        formControlName="term"
+      />
+      <button mat-icon-button matSuffix aria-label="book-search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</ng-container>
 
 <ng-container *ngIf="searchTerm; else empty">
   <div class="book-grid">
@@ -38,7 +40,7 @@
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
             >
-              Want to Read
+              {{ b.finished ? 'Finished' : 'Want to read' }}
             </button>
           </div>
         </div>
