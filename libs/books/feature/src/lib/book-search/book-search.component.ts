@@ -54,12 +54,7 @@ export class BookSearchComponent implements OnInit {
   }
 
   undoAddReadingListItem(book: Book) {
-    const itemToRemove: ReadingListItem = {
-      bookId: book.id,
-      title: book.title,
-      authors: book.authors,
-      description: book.description,
-    };
+    const itemToRemove: ReadingListItem = { bookId: book.id, ...book };
     this.store.dispatch(removeFromReadingList({ item: itemToRemove }));
   }
 

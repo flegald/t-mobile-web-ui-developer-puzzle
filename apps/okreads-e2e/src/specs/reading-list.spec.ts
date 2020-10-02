@@ -173,4 +173,43 @@ describe('When: I use the reading list feature', () => {
     expect(testingTitle).toEqual(titleToRemove);
     expect(await remainingTitles[0].getText()).toEqual(testingTitle);
   });
+
+  it('Then: I should be able finish a reading list item', async () => {
+    // Init Page
+    await browser.get('/');
+    await browser.wait(
+      ExpectedConditions.textToBePresentInElement($('tmo-root'), 'okreads')
+    );
+
+    // Search Author
+    const input = await $('input[type="search"]');
+    await input.sendKeys('Kurt Vonnegut');
+    await browser.wait(ExpectedConditions.presenceOf($('.book--title')), 1000);
+
+    // Add first available book to reading list and keep track of the title
+    const addToListButton = $$('[data-testing="book-item"] button')
+      .filter(async (item) => {
+        return (await item.getAttribute('disabled')) !== 'true';
+      })
+      .first();
+    await addToListButton.click();
+
+    // Open reading list
+    await $('[data-testing="toggle-reading-list"]').click();
+
+    await browser.wait(
+      ExpectedConditions.textToBePresentInElement(
+        $('[data-testing="reading-list-container"]'),
+        'My Reading List'
+      )
+    );
+
+    // Finish most recent item
+    const lastItemDetails = await $$('.reading-list-item').last();
+    const finishedButton = await lastItemDetails.$('.mat-icon-no-color');
+    await finishedButton.click();
+
+  //  Verify finished information is present
+    expect(await lastItemDetails.$(".reading-list-item--details--finished").getText()).toBeTruthy();
+  });
 });

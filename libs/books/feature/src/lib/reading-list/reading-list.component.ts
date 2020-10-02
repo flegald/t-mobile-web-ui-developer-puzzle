@@ -4,6 +4,7 @@ import {
   addToReadingList,
   getReadingList,
   removeFromReadingList,
+  finishedReadingListItem
 } from '@tmo/books/data-access';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Book, ReadingListItem } from '@tmo/shared/models';
@@ -19,13 +20,7 @@ export class ReadingListComponent {
   constructor(private readonly store: Store, private _snackBar: MatSnackBar) {}
 
   undoRemoveFromReadingList(item: ReadingListItem) {
-    const itemToKeep: Book = {
-      title: item.title,
-      authors: item.authors,
-      description: item.description,
-      id: item.bookId,
-      coverUrl: item.coverUrl,
-    };
+    const itemToKeep: Book = { id: item.bookId, ...item}
     this.store.dispatch(addToReadingList({ book: itemToKeep }));
   }
 
@@ -40,5 +35,9 @@ export class ReadingListComponent {
       .subscribe(() => {
         this.undoRemoveFromReadingList(item);
       });
+  }
+
+  markAsFinished(item) {
+    this.store.dispatch(finishedReadingListItem({ item }));
   }
 }
